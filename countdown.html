@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Countdown Timer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                $.ajax({
+                    url: "/countdown",
+                    success: function (result) {
+                        $("#countdown").html(result);
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Countdown Timer</h1>
+    <div id="countdown">
+        <!-- The Flask app will replace this with the countdown timer -->
+    </div>
+</body>
+
+</html>
