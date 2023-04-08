@@ -1,88 +1,342 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+    /* COLORS */
 
+    --flash-bg-color: #f8f9fa;
+    --flash-title-color: #404040;
+    --flash-border-color: #727272;
+    --flash-timer-color: #deeaea;
+    --flash-bg-timer-color: #404040;
+    --flash-primary-color: #deeaea;
+    --flash-secondary-color: #f8f9fa;
+    --flash-text-primary-color: #404040;
+    --flash-text-secondary-color: #b5b5b5;
+    --flash-text-error-color: #ff6171;
+    --flash-bg-hover-color: #747272;
+    --flash-text-hover-color: #f8f9fa;
+    --flash-bg-reset-color: #404040;
+    --flash-bg-phone-color: #404040;
+    --flash-text-reset-color: #f8f9fa;
+    --flash-text-phone-color: #f8f9fa;
+
+    --orig-bg-color: #404040;
+    --orig-title-color: #f8f9fa;
+    --orig-border-color: #727272;
+    --orig-timer-color: black;
+    --orig-bg-timer-color: white;
+    --orig-primary-color: #deeaea;
+    --orig-secondary-color: #f8f9fa;
+    --orig-text-primary-color: #404040;
+    --orig-text-secondary-color: #b5b5b5;
+    --orig-text-error-color: #ff6171;
+    --orig-bg-hover-color: #747272;
+    --orig-text-hover-color: #f8f9fa;
+    --orig-bg-reset-color: #b5b5b5;
+    --orig-bg-phone-color: #f8f9fa;
+    --orig-text-reset-color: #404040;
+    --orig-text-phone-color: #404040;
+
+    --bg-color: var(--orig-bg-color);
+    --title-color: var(--orig-title-color);
+    --border-color: var(--orig-border-color);
+
+    --timer-color: var(--orig-timer-color);
+    --bg-timer-color: var(--orig-bg-timer-color);
+
+    --primary-color: var(--orig-primary-color);
+    --secondary-color: var(--orig-secondary-color);
+
+    --text-primary-color: var(--orig-text-primary-color);
+    --text-secondary-color: var(--orig-text-secondary-color);
+    --text-error-color: var(--orig-text-error-color);
+
+    --bg-hover-color: var(--orig-bg-hover-color);
+    --text-hover-color: var(--orig-text-hover-color);
+
+    --bg-reset-color: var(--orig-bg-reset-color);
+    --bg-phone-color: var(--orig-bg-phone-color);
+    --text-reset-color: var(--orig-text-reset-color);
+    --text-phone-color: var(--orig-text-phone-color);
+
+    /* FONTS */
+    font-family: 'Lexend', sans-serif;
 }
 
-body{
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+body {
     height: 100vh;
-    width: 100%;
-    background: #8e44ad;
+    width: 100vw;
+
+    margin: 0;
+    padding: 0;
+
+    background: var(--bg-color);
+    color: var(--title-color);
+
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* ANIMATIONS */
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
+}
+
+body.flash {
+    background-color: var(--flash-bg-color);
+    color: var(--flash-title-color);
+}
+
+h1 {
+    position: relative;
+    font-weight: normal;
+}
+
+h1::after {
+    --thickness: 0.22rem;
+    --width: 40%;
+    content: '';
+    position: absolute;
+    bottom: calc(-1 * var(--thickness));
+    left: calc(50% - var(--width) / 2);
+    width: var(--width);
+    height: var(--thickness);
+    background-color: currentColor;
+}
+
+main {
+    text-transform: uppercase;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+section#timer {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    background-color: var(--bg-timer-color);
+    border: solid 0.1rem var(--border-color);
+    color: var(--text-primary-color);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* ANIMATIONS */
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
+}
+
+body.flash section#timer {
+    background-color: var(--flash-bg-timer-color);
+    color: var(--flash-text-primary-color);
+}
+
+section#timer>header {
+    width: 100%;
+    text-align: center;
+
+    background-color: var(--primary-color);
+    color: var(--text-primary-color);
+
+    /* ANIMATIONS */
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
+}
+
+body.flash section#timer>header {
+    background-color: var(--flash-primary-color);
+    color: var(--flash-text-primary-color);
+}
+
+h2 {
+    font-weight: normal;
+
+    margin: 0.6rem auto;
+}
+
+h3 {
+    margin-top: 0.2rem;
+    margin-bottom: 0;
+}
+
+.error {
+    background-color: var(--bg-timer-color);
+    color: var(--text-error-color);
+
+    /* ANIMATIONS */
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
+}
+
+body.flash .error {
+    background-color: var(--flash-flash-text-primary-color);
+    color: var(--flash-text-error-color);
+}
+
+[aria-hidden="true"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+time {
+    padding: 0 1em 1em 1em;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    cursor: text;
+}
+
+time>div {
+    display: flex;
+    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
 }
 
-.box{
-    height: 60vh;
-    width: 550px;
-    background-color: black;
-    border: #8e44ad;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px 5px black;
-    overflow: hidden;
-}
-
-.box #disp{
-    height: 10vh;
-    width: 100%;
-    color: white;
-    text-align: center;
-    font-size: 40px;
-    line-height: 10vh;
-}
-
-.box form{
-    height: 35vh;
-    width: 100%;
-    background-color: #fff;
-    line-height: 45vh;
-    text-align: center;
-}
-
-.box form input{
-    width: 130px;
-    border: none;
-    outline: none;
-    border-bottom: 3px solid #8e44ad;
-    color: #8e44ad;
-    background-color: transparent;
-    font-size: 60px;
-    text-align: center;
-}
-
-.box form input::placeholder{
-    font-size: 20px;
-    color: #8e44ad;
-    font-size: 700;
+input {
+    font-weight: bold;
 }
 
 input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button{
+input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-.box .btn{
-    height: 15vh;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+input[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+
+    text-align: left;
+
+    width: 2ch;
 }
 
-.box .btn button{
-    padding: 5px 10px;
-    font-size: 25px;
-    background-color: #292828;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
+input.nonempty {
+    text-align: center;
+}
+
+input[type=number],
+time span {
+    border: transparent;
+    background-color: transparent;
+    color: var(--timer-color);
+
+    font-size: 5rem;
+
+    /* ANIMATIONS */
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
+}
+
+body.flash input[type=number],
+body.flash time span {
+    background-color: transparent;
+    color: var(--flash-timer-color);
+}
+
+label {
+    background-color: transparent;
+    color: var(--text-secondary-color);
+
+    /* ANIMATIONS */
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
+}
+
+body.flash label {
+    background-color: transparent;
+    color: var(--flash-text-secondary-color);
+}
+
+#formcontrols {
+    --line-height: 2em;
+}
+
+section#formcontrols>button,
+section#formcontrols>input {
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+}
+
+button {
+    text-transform: uppercase;
+    border-color: transparent;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     cursor: pointer;
-    transition: 0.5s;
 }
 
-.box .btn button:hover{
-    background-color: #8e44ad;
+input[type=tel] {
+    width: 12.5ch;
+
+    text-align: center;
+
+    line-height: calc(var(--line-height) + 2px);
+
+    background-color: var(--bg-phone-color);
+    color: var(--text-phone-color);
+    border: solid 0.1rem var(--border-color);
+
+    /* ANIMATIONS */
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
 }
+
+/* body.flash input[type=tel] {
+    background-color: var(--flash-bg-phone-color);
+    color: var(--flash-text-phone-color);
+} */
+
+#start,
+#send {
+    line-height: var(--line-height);
+
+    background-color: var(--primary-color);
+    color: var(--text-primary-color);
+}
+
+/* body.flash #start,
+body.flash #send {
+    background-color: var(--flash-primary-color);
+    color: var(--flash-text-primary-color);
+} */
+
+#reset {
+    line-height: var(--line-height);
+
+    background-color: var(--bg-reset-color);
+    color: var(--text-primary-color);
+}
+
+/* body.flash #reset {
+    background-color: var(--flash-bg-reset-color);
+    color: var(--flash-text-reset-color);
+} */
+
+:is(#start, #send, #reset):hover {
+    background-color: var(--bg-hover-color);
+    color: var(--text-hover-color);
+}
+
+/* body.flash :is(#start, #send, #reset):hover {
+    background-color: var(--flash-bg-hover-color);
+    color: var(--flash-text-hover-color);
+} */

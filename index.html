@@ -1,33 +1,63 @@
 <!DOCTYPE html>
-<html lang="en"></html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accessible Timer</title>
+    <title>AllTime</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 
 <body>
+    <header>
+        <h1>AllTime</h1>
+    </header>
+    <main>
+        <form>
+            <section id="timer">
+                <header>
+                    <h2 id="status" aria-live="assertive">Timer</h2>
+                </header>
 
-    <div class="box">
-        <div id="disp">Timer</div>
+                <h3 class="error" aria-hidden="true">Enter Valid Time</h3>
 
-        <form action="#">
-            
-            <input type="number" id="hour" placeholder="HOUR" autocomplete="off" >
-            <input type="number" id="minute" placeholder="MINUTES" autocomplete="off">
-            <input type="number" id="second" placeholder="SECONDS" autocomplete="off">
+                <time>
+                    <div>
+                        <label for="hour">Hr</label>
+                        <input type="number" min="0" max="99" id="hour" aria-label="Hour" placeholder="00"
+                            autocomplete="off" />
+                    </div>
+                    <span>:</span>
+                    <div>
+                        <label for="minute">Min</label>
+                        <input type="number" min="0" max="60" id="minute" aria-label="Minutes" placeholder="00"
+                            autocomplete="off" maxlength="2" />
+                    </div>
+                    <span>:</span>
+                    <div>
+                        <label for="second">Sec</label>
+                        <input type="number" min="0" max="60" id="second" aria-label="Seconds" placeholder="00"
+                            autocomplete="off" maxlength="2" />
+                    </div>
+                </time>
+            </section>
 
+            <section id="formcontrols">
+                <button id="start">Start</button>
+                <button id="reset">Reset</button>
+                <label for="phonenumber" class="visually-hidden">Phone Number</label>
+                <input type="tel" id="phonenumber" aria-label="Phone Number" placeholder="(555) 123-4567"
+                    maxlength="14" />
+                <button id="send">Send</button>
+            </section>
         </form>
+    </main>
 
-        <div class="btn">
-            <button id="start">START</button>
-            <button id="reset">RESET</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 
 </html>
