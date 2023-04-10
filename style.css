@@ -30,9 +30,9 @@
     --orig-text-error-color: #ff6171;
     --orig-bg-hover-color: #747272;
     --orig-text-hover-color: #f8f9fa;
-    --orig-bg-reset-color: #b5b5b5;
+    --orig-bg-reset-color: #a0a0a0;
     --orig-bg-phone-color: #f8f9fa;
-    --orig-text-reset-color: #404040;
+    --orig-text-reset-color: #f8f9fa;
     --orig-text-phone-color: #404040;
 
     --bg-color: var(--orig-bg-color);
@@ -59,6 +59,11 @@
 
     /* FONTS */
     font-family: 'Lexend', sans-serif;
+}
+
+html {
+    font-size: calc(min(3vw, 3vh));
+    overflow: hidden;
 }
 
 .visually-hidden {
@@ -99,6 +104,8 @@ body.flash {
 h1 {
     position: relative;
     font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 7rem;
 }
 
 h1::after {
@@ -249,6 +256,12 @@ time span {
     transition: background-color 1s ease-in-out, color 1s ease-in-out;
 }
 
+.error input[type=number],
+.error time span {
+    background-color: transparent;
+    color: var(--text-error-color);
+}
+
 body.flash input[type=number],
 body.flash time span {
     background-color: transparent;
@@ -270,10 +283,15 @@ body.flash label {
 
 #formcontrols {
     --line-height: 2em;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 section#formcontrols>button,
-section#formcontrols>input {
+#phonenumber,
+.tooltip {
     font-size: 1.3rem;
     border-radius: 0.5rem;
 }
@@ -309,6 +327,8 @@ input[type=tel] {
 #send {
     line-height: var(--line-height);
 
+    padding: 0 0.67em;
+
     background-color: var(--primary-color);
     color: var(--text-primary-color);
 }
@@ -322,8 +342,10 @@ body.flash #send {
 #reset {
     line-height: var(--line-height);
 
+    padding: 0 0.67em;
+
     background-color: var(--bg-reset-color);
-    color: var(--text-primary-color);
+    color: var(--text-reset-color);
 }
 
 /* body.flash #reset {
@@ -340,3 +362,31 @@ body.flash #send {
     background-color: var(--flash-bg-hover-color);
     color: var(--flash-text-hover-color);
 } */
+
+#phone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tooltip {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    text-transform: none;
+    top: calc(var(--line-height, 2em) + 10px);
+    background-color: var(--bg-phone-color);
+    color: var(--text-phone-color);
+    padding: 5px 10px;
+    z-index: 100;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+#phonenumber:hover+.tooltip,
+#phonenumber:focus+.tooltip {
+    opacity: 1;
+    pointer-events: auto;
+}

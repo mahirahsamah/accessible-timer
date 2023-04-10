@@ -6,9 +6,12 @@ const start = document.getElementById('start')
 const reset = document.getElementById('reset')
 
 const statusMsg = document.getElementById('status')
+const error = document.getElementById('error')
+const time = document.getElementById('time')
 
 var flasher = null;
 var interval = null;
+var timer_duration = '';
 var total_seconds = 0;
 
 const phone = document.getElementById('phonenumber');
@@ -39,6 +42,24 @@ const totalValue = () => {
     total_seconds = (+hour.value) * 3600 + (+minute.value) * 60 + (+second.value);
 }
 
+const validateTime = () => {
+    if (hour.value === '' && minute.value === '' && second.value === '') {
+        time.classList.add('error');
+        error.ariaHidden = false;
+        return;
+    }
+    let validHour = +hour.value >= +hour.min && +hour.value <= +hour.max;
+    let validMinute = +minute.value >= +minute.min && +minute.value <= +minute.max;
+    let validSecond = +second.value >= +second.min && +second.value <= +second.max;
+    if (!validHour || !validMinute || !validSecond) {
+        time.classList.add('error');
+        error.ariaHidden = false;
+        return;
+    }
+    time.classList.remove('error');
+    error.ariaHidden = true;
+}
+
 const Timer = () => {
     totalValue();
     total_seconds--;
@@ -58,6 +79,10 @@ const Timer = () => {
         flasher = setInterval(() => {
             document.body.classList.toggle('flash');
         }, 1000 /* ms */);
+        var pnumber = phonenumber();
+        console.log("Phone number", pnumber);
+        console.log("Your", timer_duration, "timer just finished.");
+        // TODO: Send a text message to the user's phone number using Twilio.
     }
 }
 
@@ -65,6 +90,12 @@ start.addEventListener('click', (e) => {
     e.preventDefault();
     clearInterval(interval);
     interval = setInterval(Timer, 1000 /*ms*/);
+
+    hour.value = padZero(hour.value);
+    minute.value = padZero(minute.value);
+    second.value = padZero(second.value);
+
+    timer_duration = hour.value + 'hr ' + minute.value + 'min ' + second.value + 'sec';
 
     statusMsg.innerText = "Timer Started";
 });
@@ -89,6 +120,7 @@ hour.addEventListener('input', (e) => {
 });
 
 hour.addEventListener('focusout', (e) => {
+    validateTime();
     if (e.target.value.length > 0) {
         e.target.classList.add('nonempty');
         e.target.value = padZero(e.target.value);
@@ -104,6 +136,7 @@ minute.addEventListener('input', (e) => {
 });
 
 minute.addEventListener('focusout', (e) => {
+    validateTime();
     if (e.target.value.length > 0) {
         e.target.classList.add('nonempty');
         e.target.value = padZero(e.target.value);
@@ -119,6 +152,7 @@ second.addEventListener('input', (e) => {
 });
 
 second.addEventListener('focusout', (e) => {
+    validateTime();
     if (e.target.value.length > 0) {
         e.target.classList.add('nonempty');
         e.target.value = padZero(e.target.value);
