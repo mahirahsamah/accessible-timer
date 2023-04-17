@@ -14,6 +14,10 @@ var interval = null;
 var timer_duration = '';
 var total_seconds = 0;
 
+// TWILIO IDS - authToken accountSid
+const accountSid ="AC93f6dbd5a10a779e73558c9fb277db54";
+const authToken = 'a45a3b2af783f27719f368cb0da103d7';
+
 const phone = document.getElementById('phonenumber');
 
 phone.addEventListener('input', (e) => {
@@ -79,10 +83,36 @@ const Timer = () => {
         flasher = setInterval(() => {
             document.body.classList.toggle('flash');
         }, 1000 /* ms */);
-        var pnumber = phonenumber();
-        console.log("Phone number", pnumber);
+        
         console.log("Your", timer_duration, "timer just finished.");
+        var pnumber = "+1" + phonenumber().toString();
+        console.log("Phone number", pnumber);
+
         // TODO: Send a text message to the user's phone number using Twilio.
+        if(pnumber.length == 12){
+            $.ajax({
+                type: "POST",
+                username: 'AC93f6dbd5a10a779e73558c9fb277db54',
+                password: 'a45a3b2af783f27719f368cb0da103d7',
+                url: "https://api.twilio.com/2010-04-01/Accounts/AC93f6dbd5a10a779e73558c9fb277db54/Messages.json",
+                data: {
+                  "To" : pnumber,
+                  "From" : "+18556080922",
+                  "Body" : "AllTime - Time Over!"
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa('AC93f6dbd5a10a779e73558c9fb277db54' + ':' + 'a45a3b2af783f27719f368cb0da103d7'));
+                },
+                success: function(data) {
+                  console.log(data);
+                },
+                error: function(data) {
+                  console.log(data);
+                }
+            });
+
+        }
+        
     }
 }
 
@@ -98,6 +128,9 @@ start.addEventListener('click', (e) => {
     timer_duration = hour.value + 'hr ' + minute.value + 'min ' + second.value + 'sec';
 
     statusMsg.innerText = "Timer Started";
+    var pnumber = "+1" + phonenumber().toString();
+    console.log("Phone number", pnumber);
+
 });
 
 reset.addEventListener('click', (e) => {
