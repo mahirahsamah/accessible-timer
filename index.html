@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="encoding system" charset="UTF-8">
+    <meta name="browset version" http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllTime</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
         <h2>An accessible, flashing, visual timer. </h2>
     </header>
     <main>
-        <form>
+        <form name = "timer form" role="timer information">
             <section id="timer">
                 <header>
                     <h2 id="status" aria-live="assertive">Timer</h2>
@@ -28,33 +28,33 @@
 
                 <h3 id="error" class="error" aria-hidden="true">Enter Valid Time</h3>
 
-                <time id="time">
-                    <div>
+                <time id="time" role="hours minutes seconds time">
+                    <div name = "input hours">
                         <label for="hour">Hr</label>
-                        <input type="number" min="0" max="99" id="hour" aria-label="Hour" placeholder="00"
+                        <input role="hours input" name = "input hours" type="number" min="0" max="99" id="hour" aria-label="Hour" placeholder="00"
                             autocomplete="off" />
                     </div>
                     <span>:</span>
-                    <div>
+                    <div name = "input minutes">
                         <label for="minute">Min</label>
-                        <input type="number" min="0" max="59" id="minute" aria-label="Minutes" placeholder="00"
+                        <input role="minutes input" name = "input minutes" type="number" min="0" max="59" id="minute" aria-label="Minutes" placeholder="00"
                             autocomplete="off" maxlength="2" />
                     </div>
                     <span>:</span>
-                    <div>
+                    <div name = "input seconds">
                         <label for="second">Sec</label>
-                        <input type="number" min="0" max="59" id="second" aria-label="Seconds" placeholder="00"
+                        <input role="seconds input" name = "input seconds" type="number" min="0" max="59" id="second" aria-label="Seconds" placeholder="00"
                             autocomplete="off" maxlength="2" />
                     </div>
                 </time>
             </section>
 
             <section id="formcontrols">
-                <button id="start">Start</button>
-                <button id="reset">Reset</button>
-                <div id="phone">
+                <button role="start timer" name = "start timer" id="start">Start</button>
+                <button role="reset timer" name = "reset timer" id="reset">Reset</button>
+                <div name = "input phone number" id="phone">
                     <label for="phonenumber" class="visually-hidden">Phone Number</label>
-                    <input type="tel" id="phonenumber" aria-label="Phone Number" placeholder="(555) 123-4567"
+                    <input role="input phone number" name = "input phone number" type="tel" id="phonenumber" aria-label="Phone Number" placeholder="(555) 123-4567"
                         maxlength="14" aria-describedby="phone-tooltip" />
                     <span id="phone-tooltip" class="tooltip">You will receive a text when the timer finishes.</span>
                 </div>
